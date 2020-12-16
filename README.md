@@ -37,7 +37,7 @@ The configuration details of each machine may be found below.
 | Jump Box      | Gateway                            | 10.0.0.4            | Linux            |
 | Web 1 Server  | Process & deliver web pages        | 10.0.0.5            | Linux            |
 | Web 2 Server  | Process & deliver web pages        | 10.0.0.6            | Linux            |
-| ELK Server    | Log data & monitor network traffic | 10.1.0.0            | Linux            |
+| ELK Server    | Log data & monitor network traffic | 10.1.0.4            | Linux            |
 | Load Balancer | Distribute network traffic         | 104.42.75.65        | Linux            |
 | My Computer   | Log data & monitor network traffic | author's IP address | Windows          |
 
@@ -90,16 +90,21 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 - Copy the following files to /etc/ansible directory.
-  - filebeat-playbook.yml
+  - [filebeat-playbook.yml]
   - filebeat-config.yml
   - metricbeat-playbook.yml
   - metricbeat-config.yml
-- Update the configuration files to include the private IP address of the Elk Server in the 'output.elasticsearch' and 'setup.kibana' sections of these files.
-- Run the playbook, and navigate to the Filebeat installation page on the ELK server GUI (http://[your.VM.IP]:5601/app/kibana) to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
+- Update the configuration files to include the private IP address of the Elk Server in the `output.elasticsearch` and `setup.kibana` sections of the filebeat-config.yml and metricbeat-config.yml files.
+
+- Run the playbook, and navigate to the Filebeat or Metricbeat installation page on the ELK server GUI on Kibana website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.
+
+- The ansible playbook files can also be copied from the following webpages of the ELK server GUI.
+  - The filebeat-playbook.yml can be copied from the Filebeat installation page on the ELK server GUI. From the homepage of ELK server GUI website, click `Add Log data` and click `System Logs`.  The Getting Started document is under the DEB tab.
+  - The metricbeat-playbook.yml is copied from the Metricbeat installation page on the ELK server GUI under From the homepage of ELK server GUI website, click `Add Metric Data` and click `Docker Metrics`.  The Getting Started document is under the DEB tab.
+
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+
+- In this deployment, the http://104.211.28.24:5601/app/kibana webpage is navigated to in order to check that the ELK server is running. 104.211.28.24 is the public IP address of ELK Server. 
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
