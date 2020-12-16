@@ -61,13 +61,14 @@ A summary of the access policies in place can be found in the table below.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because Ansible can significantly reduce maintenance overheads and performance degradation. Ansible is simple to learn with easily understandable Python language.
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Install docker on on Ubuntu
+- Install package installer for Python3
+- Install docker python module with pip
+- Increase max_map_count parameter to result an error when starting ElasticSearch
+- Download and launch a docker container for ELK Server
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -95,7 +96,7 @@ SSH into the control node and follow the steps below:
   - [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml)
   - [metricbeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-config.yml)
 
-- Update the configuration files to include the private IP address of the Elk Server in the `output.elasticsearch` and `setup.kibana` sections of the filebeat-config.yml and metricbeat-config.yml files.
+- Update the configuration files to include the private IP address of the Elk Server in the `output.elasticsearch` and `setup.kibana` sections of the [filebeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/filebeat-playbook.yml) and [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml) files.
 
 - Run the playbook, and navigate to the Filebeat or Metricbeat installation page on the ELK server GUI on Kibana website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.
 
@@ -105,6 +106,6 @@ SSH into the control node and follow the steps below:
 
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
 
-- In this deployment, the http://104.211.28.24:5601/app/kibana webpage is navigated to in order to check that the ELK server is running. 104.211.28.24 is the public IP address of ELK Server. 
+- In this deployment, the ELK server GUI (http://104.211.28.24:5601/app/kibana) webpage is navigated to in order to check that the ELK server is running. 104.211.28.24 is the public IP address of ELK Server. 
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
