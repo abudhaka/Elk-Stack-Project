@@ -4,9 +4,11 @@ The files in this repository were used to configure the network depicted below.
 
 ![https://github.com/abudhaka/Elk-Stack-Project/blob/main/](Images/Project_1.2_diagram.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the _____ file may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the yml files may be used to install only certain pieces of it, such as Filebeat.
 
-  - _TODO: Enter the playbook file._
+- elk.yml
+- filebeat-plybook.yml
+- metricbeat-playbook.yml
 
 This document contains the following details:
 - Description of the Topology
@@ -54,8 +56,8 @@ A summary of the access policies in place can be found in the table below.
 | Jump Box      | No                  | author's IP address (port 22) access only |
 | Web 1 Server  | No                  | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose) |    	
 | Web 2 Server  | No                  | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose) |   	
-| Load Balancer | Yes		      | an author's IP address (port 80) |
-| ELK Server    | Yes                 | 10.0.0.4:22, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana),an author's IP address (port 5601) |
+| Load Balancer | Yes		      | author's IP address (port 80) |
+| ELK Server    | Yes                 | 10.0.0.4:22, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana), author's IP address (port 5601) |
 
 ### Elk Configuration
 
@@ -87,9 +89,13 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the following files to /etc/ansible directory.
+  - filebeat-playbook.yml
+  - filebeat-config.yml
+  - metricbeat-playbook.yml
+  - metricbeat-config.yml
+- Update the configuration files to include the private IP address of the Elk Server in the 'output.elasticsearch' and 'setup.kibana' sections of these files.
+- Run the playbook, and navigate to the Filebeat installation page on the ELK server GUI (http://[your.VM.IP]:5601/app/kibana) to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
