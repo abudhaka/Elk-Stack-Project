@@ -90,10 +90,10 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 - Copy the following files to /etc/ansible directory.
-  - [filebeat-playbook.yml]
-  - filebeat-config.yml
-  - metricbeat-playbook.yml
-  - metricbeat-config.yml
+  - [filebeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/filebeat-playbook.yml)
+  - [filebeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/filebeat-config.yml)
+  - [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml)
+  - [metricbeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-config.yml)
 
 - Update the configuration files to include the private IP address of the Elk Server in the `output.elasticsearch` and `setup.kibana` sections of the filebeat-config.yml and metricbeat-config.yml files.
 
