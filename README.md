@@ -47,17 +47,17 @@ The machines on the internal network are not exposed to the public Internet.
 
 Only the load balancer machine can accept connections from the Internet. Access to this machine is allowed from an author's personal IP address.
 
-Machines within the network can only be accessed by SSH with authenticated SSH keys.  And, in the current setting, we allow a SSH access to ELK Server only from Jump Box which has an IP address of 10.0.0.4.
+Machines within the network can only be accessed by SSH with authenticated SSH keys.  And, in the current setting, a SSH access to ELK Server is allowed only from Jump Box which has an IP address of 10.0.0.4.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name          | Publicly Accessible | Allowed IP Addresses |  
-|----------     |---------------------|----------------------|
-| Jump Box      | No                  | author's IP address (port 22) access only |
-| Web 1 Server  | No                  | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose) |    	
-| Web 2 Server  | No                  | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose) |   	
-| Load Balancer | Yes		      | author's IP address (port 80) |
-| ELK Server    | Yes                 | 10.0.0.4:22, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana), author's IP address (port 5601) |
+| Name         | Publicly Accessible| Allowed IP Addresses|  
+|--------------|--------------------|---------------------|
+| Jump Box     | No                 | author's IP address (port 22) access only|
+| Web 1 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose)|    	
+| Web 2 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose)|   	
+| Load Balancer| Yes		    | author's IP address (port 80)|
+| ELK Server   | Yes                | 10.0.0.4:22, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana), author's IP address (port 5601)|
 
 ### Elk Configuration
 
@@ -90,22 +90,21 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the following files to /etc/ansible directory.
+- Copy the following files to the /etc/ansible directory.
   - [filebeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/filebeat-playbook.yml)
   - [filebeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/filebeat-config.yml)
   - [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml)
   - [metricbeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-config.yml)
 
-- Update the configuration files to include the private IP address of the Elk Server in the `output.elasticsearch` and `setup.kibana` sections of the [filebeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/filebeat-playbook.yml) and [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml) files.
+- Update the default ansible hosts file to include 10.1.0.4 IP address. This hosts file specifies to the ansible playbook to install and configure ELK Server on 10.1.0.4 IP address and install Filebeat and Metricbeat on the two web servers.
 
-- Run the playbook, and navigate to the Filebeat or Metricbeat installation page on the ELK server GUI on Kibana website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.
+- Run the playbook, and navigate to the Filebeat or Metricbeat installation page on the ELK server GUI on Kibana website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.  In this implementation, 104.211.28.24 is the public IP address of ELK Server.
 
-- The ansible playbook files can also be copied from the following webpages of the ELK server GUI.
-  - The filebeat-playbook.yml can be copied from the Filebeat installation page on the ELK server GUI. From the homepage of ELK server GUI website, click `Add Log data` and click `System Logs`.  The Getting Started document is under the DEB tab.
-  - The metricbeat-playbook.yml is copied from the Metricbeat installation page on the ELK server GUI under From the homepage of ELK server GUI website, click `Add Metric Data` and click `Docker Metrics`.  The Getting Started document is under the DEB tab.
-
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-
-- In this deployment, the ELK server GUI (http://104.211.28.24:5601/app/kibana) webpage is navigated to in order to check that the ELK server is running. 104.211.28.24 is the public IP address of ELK Server. 
-
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+The specific commands the user will need to run to download the playbook, update the files, etc.
+- sudo docker container list --all
+- sudo docker start <name of the docker container>
+- sudo docker attach <name of the docker container>
+- cd /etc/ansible
+- ansible-playbook elk.yml
+- ansible-playbook filebeat-playbook.yml
+- ansible-playbook metricbeat-playbook.yml
