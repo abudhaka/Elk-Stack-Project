@@ -103,10 +103,10 @@ SSH into the control node and follow the steps below:
 
 - Run the playbook, and navigate to the Filebeat or Metricbeat installation page on the ELK server GUI on Kibana website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.  In this implementation, 104.211.28.24 is the public IP address of ELK Server.
 
-The specific commands the user will need to run to download the playbook, update the files, etc.
+The specific commands you will need to run to download the playbook, update the files, etc.
 - sudo docker container list --all
-- sudo docker start <name of the docker container>
-- sudo docker attach <name of the docker container>
+- sudo docker start (name of the docker container)
+- sudo docker attach (name of the docker container)
 - cd /etc/ansible
 - ansible-playbook elk.yml
 - ansible-playbook filebeat-playbook.yml
