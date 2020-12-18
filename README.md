@@ -23,8 +23,9 @@ This document contains the following details:
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly availability, in addition to restricting Denial-of-Service (DoS) attack to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
+Load balancing ensures that the application will be highly availability, in addition to restricting denial-of-service (DoS) attack to the network.  A load balancer adds additional layer of security to a website. Load balancers can reduce the load on web servers and optimize traffic for a better user experience.  Moreover, load balancers can defends web servers against denial-of-service attacks.  
+
+The advantage of a jump box is that it adds a layer of security by not letting admins or clients directly connect to the servers.  Any user on the network can access and potentially attack any server in the network.  But, when Jump Box is employed, controls can be put in place by allowing only the whitelisted IP addresses to connect to the servers through Jump Box.
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the network traffic and system CPU, memory, and load.
 - Filebeat monitors the log files or locations that you specify, as well as collects log events, and forwards them either to Elasticsearch or Logstash.
@@ -32,32 +33,32 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 
 The configuration details of each machine may be found below.
 
-| Name          | Function   			     | IP Address          | Operating System |
-|---------------|------------------------------------|---------------------|------------------|
-| Jump Box      | Gateway                            | 10.0.0.4            | Linux            |
-| Web 1 Server  | Process & deliver web pages        | 10.0.0.5            | Linux            |
-| Web 2 Server  | Process & deliver web pages        | 10.0.0.6            | Linux            |
-| ELK Server    | Log data & monitor network traffic | 10.1.0.4            | Linux            |
-| Load Balancer | Distribute network traffic         | 104.42.75.65        | Linux            |
-| My Computer   | Log data & monitor network traffic | author's IP address | Windows          |
+| Name          | Function   			       | IP Address          | Operating System |
+|---------------|--------------------------------------|---------------------|------------------|
+| Jump Box      | Gateway                              | 10.0.0.4            | Linux            |
+| Web 1 Server  | Process & deliver web pages          | 10.0.0.5            | Linux            |
+| Web 2 Server  | Process & deliver web pages          | 10.0.0.6            | Linux            |
+| ELK Server    | Log data & monitor network traffic   | 10.1.0.4            | Linux            |
+| Load Balancer | Distribute network traffic           | 104.42.75.65        | Linux            |
+| My Computer   | Access other machines as an end user | 198.168.2.1         | Windows          |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the load balancer machine can accept connections from the Internet. Access to this machine is allowed from an author's personal IP address.
+Only the load balancer machine can accept connections from the Internet. In this deployment, access to the load balancer is allowed from My Computer with an IP address of 192.168.2.1.
 
-Machines within the network can only be accessed by SSH with authenticated SSH keys.  And, in the current setting, a SSH access to ELK Server is allowed only from Jump Box which has an IP address of 10.0.0.4.
+Machines within the network can only be accessed by SSH with authenticated SSH keys.  And, in this current setting, the SSH access to ELK Server is allowed only from Jump Box which has an IP address of 10.0.0.4.
 
 A summary of the access policies in place can be found in the table below.
 
 | Name         | Publicly Accessible| Allowed IP Addresses|  
 |--------------|--------------------|---------------------|
-| Jump Box     | No                 | author's IP address (port 22) access only|
-| Web 1 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose)|    	
-| Web 2 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, author's IP address (port 80 for testing purpose)|   	
-| Load Balancer| Yes		    | author's IP address (port 80)|
-| ELK Server   | Yes                | 10.0.0.4:22, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana), author's IP address (port 5601)|
+| Jump Box     | No                 | 198.168.2.1:22|
+| Web 1 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, 192.168.2.1:80|    	
+| Web 2 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, 192.168.2.1:80|   	
+| Load Balancer| Yes		    | 192.168.2.1:80|
+| ELK Server   | Yes                | 10.0.0.4:22, 192.168.2.1:5601, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana)|
 
 ### Elk Configuration
 
@@ -84,7 +85,9 @@ We have installed the following Beats on these machines:
 - Metricbeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat collects log events and any logs that are stored in the /var/log directory of the related web servers, such as syslog data.  
+- Metricbeat collects system metrics and statistics, such as CPU and memory usage, network traffic, and load statistics.
+
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
@@ -96,7 +99,7 @@ SSH into the control node and follow the steps below:
   - [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml)
   - [metricbeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-config.yml)
 
-- Update the default ansible hosts file to include 10.1.0.4 IP address. This hosts file specifies to the ansible playbook to install and configure ELK Server on 10.1.0.4 IP address and install Filebeat and Metricbeat on 10.0.0.5 and 10.0.0.6 IP addresses of the two web servers.
+- Update the default ansible [hosts](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/hosts.yml) file to include 10.1.0.4 IP address. This hosts file specifies to the ansible playbook to install and configure ELK Server on 10.1.0.4 IP address and install Filebeat and Metricbeat on 10.0.0.5 and 10.0.0.6 IP addresses of the two web servers.
 
 - Run the playbook, and navigate to the Filebeat or Metricbeat installation page on the ELK server GUI on Kibana website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.  In this implementation, 104.211.28.24 is the public IP address of ELK Server.
 
