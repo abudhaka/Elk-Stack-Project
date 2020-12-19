@@ -40,13 +40,13 @@ The configuration details of each machine may be found below.
 | Web 2 Server  | Process & deliver web pages          | 10.0.0.6            | Linux            |
 | ELK Server    | Log data & monitor network traffic   | 10.1.0.4            | Linux            |
 | Load Balancer | Distribute network traffic           | 104.42.75.65        | Linux            |
-| My Computer   | Access other machines as an end user | 192.168.2.1         | Windows          |
+| My Computer   | Access other machines as an end user | 192.168.0.1         | Windows          |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the load balancer machine can accept connections from the Internet. Access to the load balancer is allowed from My Computer with an IP address of 192.168.2.1.
+Only the load balancer machine can accept connections from the Internet. Access to the load balancer is allowed from My Computer with an IP address of 192.168.0.1.
 
 Machines within the network can only be accessed by SSH with authenticated SSH keys.  And, in this current setting, the SSH access to ELK Server is allowed only from Jump Box which has an IP address of 10.0.0.4.
 
@@ -55,10 +55,10 @@ A summary of the access policies in place can be found in the table below.
 | Name         | Publicly Accessible| Allowed IP Addresses|  
 |--------------|--------------------|---------------------|
 | Jump Box     | No                 | 198.168.2.1:22|
-| Web 1 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, (192.168.2.1:80 for testing purpose)|    	
-| Web 2 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, (192.168.2.1:80 for testing purpose)|   	
-| Load Balancer| Yes		    | 192.168.2.1:80|
-| ELK Server   | Yes                | 10.0.0.4:22, 192.168.2.1:5601, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana)|
+| Web 1 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, (192.168.0.1:80 for testing purpose)|    	
+| Web 2 Server | No                 | 10.0.0.4:22, 104.42.75.65:80, (192.168.0.1:80 for testing purpose)|   	
+| Load Balancer| Yes		    | 192.168.0.1:80|
+| ELK Server   | Yes                | 10.0.0.4:22, 192.168.0.1:5601, 10.0.0.5:9200 (Elasticsearch), 10.0.0.5:5601 (Kibana), 10.0.0.6:9200 (Elasticsearch), 10.0.0.6:5601 (Kibana)|
 
 ### Elk Configuration
 
