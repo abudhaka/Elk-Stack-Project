@@ -25,7 +25,7 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 
 Load balancing ensures that the application will be highly availability, in addition to restricting denial-of-service (DoS) attack to the network.  A load balancer adds additional layer of security to a website. Load balancers can reduce the load on web servers and optimize traffic for a better user experience (Rhine, 2019).  Moreover, load balancers can defends web servers against denial-of-service attacks. 
 
-The advantage of a jump box is that it adds a layer of security by not letting admins or clients directly connect to the servers.  Any user on the network can access and potentially attack any server in the network.  But, when Jump Box is employed, controls can be put in place by allowing only the whitelisted IP addresses to connect to the servers through Jump Box (Erat, 2016).
+The advantage of a jump box is that it adds a layer of security by not letting admins or clients directly connect to the servers.  Any user on the network can access and potentially attack any server in the network.  But, when a jump box is employed, controls can be put in place by allowing only the whitelisted IP addresses to connect to the servers through jump box (Erat, 2016).
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the network traffic and system CPU, memory, and load.
 - Filebeat monitors log files for real-time incident response, as well as collects log events, and forwards them either to Elasticsearch or Logstash.
@@ -46,7 +46,7 @@ The configuration details of each machine may be found below.
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the load balancer machine can accept connections from the Internet. In this deployment, access to the load balancer is allowed from My Computer with an IP address of 192.168.2.1.
+Only the load balancer machine can accept connections from the Internet. Access to the load balancer is allowed from My Computer with an IP address of 192.168.2.1.
 
 Machines within the network can only be accessed by SSH with authenticated SSH keys.  And, in this current setting, the SSH access to ELK Server is allowed only from Jump Box which has an IP address of 10.0.0.4.
 
@@ -64,7 +64,7 @@ A summary of the access policies in place can be found in the table below.
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because Ansible can significantly reduce maintenance overheads and performance degradation. Ansible is simple to learn with easily understandable Python language (Dharmalingam, 2019).
 
-The playbook implements the following tasks:
+The [ELK playbook](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/elk.yml) implements the following tasks:
 - Install docker on on Ubuntu
 - Install package installer for Python3
 - Install docker python module with pip
@@ -98,9 +98,9 @@ SSH into the control node and follow the steps below:
   - [metricbeat-playbook.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-playbook.yml)
   - [metricbeat-config.yml](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/metricbeat-config.yml)
 
-- Update the default ansible [hosts](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/hosts.yml) file to include 10.1.0.4 IP address. This hosts file specifies to the ansible playbook to install and configure ELK Server on 10.1.0.4 IP address and install Filebeat and Metricbeat on 10.0.0.5 and 10.0.0.6 IP addresses of the two web servers.
+- Update the default ansible [hosts](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/hosts.yml) file to include the IP addresses of the ELK and web servers. This hosts file specifies to the ansible playbook to install and configure ELK Server on 10.1.0.4 IP address and install Filebeat and Metricbeat on 10.0.0.5 and 10.0.0.6 IP addresses of the two web servers.
 
-- Run the playbook, and navigate to the Kibana application on the ELK server GUI website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.  In this deployment, The ELK public IP address of 104.211.28.24 is used to launch the Kibana application.  [SSH barrage](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Linux/SSH%20Barrage.jpg), [Linux stress](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Linux/Linux%20Stress.pdf), and [wget-DoS](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Linux/Wget.jpg) tests were run to verify that Filebeat picks up the data and Metricbeat monitors the network traffic, load, CPU usage and memory usage on the web servers.
+- Run the playbook, and navigate to the Kibana application on the ELK server GUI website (http://[ELK public IP address]:5601/app/kibana) to check that the installation worked as expected.  In this deployment, The ELK public IP address of 104.211.28.24 was used to launch the Kibana application.  And then, run the [SSH barrage](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Linux/SSH%20Barrage.jpg), [Linux stress](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Linux/Linux%20Stress.pdf), and [wget-DoS](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Linux/Wget.jpg) tests in Linux to verify that Filebeat picks up the data and Metricbeat monitors the network traffic, load, CPU usage and memory usage on the web servers.
 
 The specific commands you will need to run to download the playbook, update the files, etc.
 - sudo docker container list --all
