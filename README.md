@@ -73,7 +73,7 @@ The [ELK playbook](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansib
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![https://github.com/abudhaka/Elk-Stack-Project/blob/main/](Images/docker_ps_result.png)
+![https://github.com/abudhaka/Elk-Stack-Project/blob/main/](Diagrams/docker_ps_result.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
