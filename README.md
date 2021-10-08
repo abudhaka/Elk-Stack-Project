@@ -65,7 +65,7 @@ A summary of the access policies in place can be found in the table below.
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because Ansible can significantly reduce maintenance overheads and performance degradation. Ansible is simple to learn with easily understandable Python language (Dharmalingam, 2019).
 
 The [ELK playbook](https://github.com/abudhaka/Elk-Stack-Project/blob/main/Ansible/elk.yml) implements the following tasks:
-- Install docker on on Ubuntu
+- Install docker on Ubuntu
 - Install package installer for Python3
 - Install docker python module with pip
 - Increase max_map_count parameter to result an error when starting Elasticsearch
