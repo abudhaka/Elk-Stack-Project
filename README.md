@@ -23,7 +23,7 @@ This document contains the following details:
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly availability, in addition to restricting denial-of-service (DoS) attack to the network.  A load balancer adds additional layer of security to a website. Load balancers can reduce the load on web servers and optimize traffic for a better user experience (Rhine, 2019).  Moreover, load balancers can defends web servers against denial-of-service attacks. 
+Load balancing ensures high availability of the application, in addition to restricting denial-of-service (DoS) attack to the network.  A load balancer adds additional layer of security to a website. Load balancers can reduce the load on web servers and optimize traffic for a better user experience (Rhine, 2019).  Moreover, load balancers can defend web servers against denial-of-service attacks. 
 
 The advantage of a jump box is that it adds a layer of security by not letting admins or clients directly connect to the servers.  Any user on the network can access and potentially attack any server in the network.  But, when a jump box is employed, controls can be put in place by allowing only the whitelisted IP addresses to connect to the servers through jump box (Erat, 2016).
 
